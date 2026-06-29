@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Conexões - Inteligência Emocional</title>
+
+<style>
+
+body {
+
+    font-family: Arial, sans-serif;
+
+    background: #ffd6e5;
+
+    color: #6b1640;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-height: 100vh;
+
+    margin: 0;
+
+}
+
+
+.caixa {
+
+    background: white;
+
+    width: 85%;
+
+    max-width: 650px;
+
+    padding: 35px;
+
+    border-radius: 20px;
+
+    box-shadow: 0 5px 25px #d88aaa;
+
+    text-align: center;
+
+}
+
+
+
+h1 {
+
+    color: #b00055;
+
+    font-size: 34px;
+
+}
+
+
+
+.subtitulo {
+
+    color: #df4f91;
+
+    margin-bottom: 25px;
+
+}
+
+
+
+#pergunta {
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    margin: 25px;
+
+}
+
+
+
+button {
+
+    display: block;
+
+    width: 90%;
+
+    margin: 12px auto;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #df4f91;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+}
+
+
+
+button:hover {
+
+    background: #b72d6d;
+
+}
+
+
+
+#status {
+
+    margin-top: 25px;
+
+    font-weight: bold;
+
+    color: #b00055;
+
+}
+
+
+
+.resultado {
+
+    font-size: 18px;
+
+    line-height: 1.6;
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+<div class="caixa">
+
+
+<h1>Conexões</h1>
+
+<p class="subtitulo">
+Inteligência emocional nas relações interpessoais
+</p>
+
+
+<p id="pergunta"></p>
+
+
+<div id="respostas"></div>
+
+
+<p id="status"></p>
+
+
+</div>
+
+
+
+<script>
+
+
+let atual = 0;
+
+
+let empatia = 0;
+
+let cooperacao = 0;
+
+
+
+let perguntas = [
+
+
+{
+
+p:"Seu amigo fala algo errado na frente de outras pessoas. O que você faz?",
+
+r:[
+
+["Corrijo ele na frente de todos","empatia-"],
+
+["Converso com ele em particular","empatia"],
+
+["Dou risada dele","empatia-"]
+
+]
+
+},
+
+
+
+{
+
+p:"Uma pessoa do grupo não fez sua parte do trabalho.",
+
+r:[
+
+["Pergunto o que aconteceu e ajudo","cooperacao"],
+
+["Faço sozinho e fico irritado","cooperacao-"],
+
+["Chamo a pessoa de inútil","empatia-"]
+
+]
+
+},
+
+
+
+{
+
+p:"Você está bravo porque alguém respondeu mal.",
+
+r:[
+
+["Respondo pior","cooperacao-"],
+
+["Tento entender antes de reagir","empatia"],
+
+["Ignoro totalmente","cooperacao-"]
+
+]
+
+},
+
+
+
+{
+
+p:"Um colega está sendo excluído.",
+
+r:[
+
+["Finjo que não vejo","empatia-"],
+
+["Incluo a pessoa","cooperacao"],
+
+["Mando ela sair","empatia-"]
+
+]
+
+},
+
+
+
+{
+
+p:"Você percebe alguém chateado.",
+
+r:[
+
+["Pergunto e escuto","empatia"],
+
+["Evito o assunto","empatia-"],
+
+["Digo que é exagero","empatia-"]
+
+]
+
+},
+
+
+
+{
+
+p:"Um amigo consegue uma conquista.",
+
+r:[
+
+["Parabenizo e apoio","cooperacao"],
+
+["Me comparo com ele","cooperacao-"],
+
+["Digo que não foi nada","empatia-"]
+
+]
+
+},
+
+
+
+{
+
+p:"Você discorda de uma ideia.",
+
+r:[
+
+["Procuro uma solução juntos","cooperacao"],
+
+["Faço do meu jeito","cooperacao-"],
+
+["Digo que a ideia é ruim","empatia-"]
+
+]
+
+},
+
+
+
+{
+
+p:"Uma brincadeira te deixa desconfortável.",
+
+r:[
+
+["Converso sobre isso","empatia"],
+
+["Finjo que está tudo bem","empatia-"],
+
+["Tento humilhar de volta","empatia-"]
+
+]
+
+},
+
+
+
+{
+
+p:"Você magoou alguém sem querer.",
+
+r:[
+
+["Peço desculpas","empatia"],
+
+["Espero passar","empatia-"],
+
+["Culpo a pessoa","empatia-"]
+
+]
+
+},
+
+
+
+{
+
+p:"Alguém começa uma discussão.",
+
+r:[
+
+["Tento resolver conversando","cooperacao"],
+
+["Deixo acontecer","cooperacao-"],
+
+["Aumento o conflito","cooperacao-"]
+
+]
+
+},
+
+
+
+{
+
+p:"Uma mensagem parece ofensiva.",
+
+r:[
+
+["Pergunto antes de julgar","empatia"],
+
+["Respondo agressivamente","empatia-"],
+
+["Bloqueio sem conversar","cooperacao-"]
+
+]
+
+},
+
+
+
+{
+
+p:"Um colega pede ajuda.",
+
+r:[
+
+["Ajudo com paciência","cooperacao"],
+
+["Ajudo rapidamente","cooperacao"],
+
+["Digo que ele deveria aprender sozinho","empatia-"]
+
+]
+
+},
+
+
+
+{
+
+p:"Uma pessoa erra numa atividade.",
+
+r:[
+
+["Ajudo a corrigir","cooperacao"],
+
+["Reclamo do erro","cooperacao-"],
+
+["Culpo ela na frente de todos","empatia-"]
+
+]
+
+},
+
+
+
+{
+
+p:"O grupo tem opiniões diferentes.",
+
+r:[
+
+["Escuto todos","empatia"],
+
+["Escolho só meus amigos","cooperacao-"],
+
+["Ataco quem pensa diferente","empatia-"]
+
+]
+
+},
+
+
+
+{
+
+p:"Como você quer agir nas relações?",
+
+r:[
+
+["Entender, respeitar e cooperar","empatia"],
+
+["Pensar só em mim","cooperacao-"],
+
+["Ignorar os sentimentos dos outros","empatia-"]
+
+]
+
+}
+
+
+];
+
+
+
+
+function mostrar(){
+
+
+if(atual >= perguntas.length){
+
+
+document.getElementById("pergunta").innerHTML =
+"Resultado final";
+
+
+document.getElementById("respostas").innerHTML =
+
+`
+<div class="resultado">
+
+Empatia: ${empatia}
+
+<br>
+
+Cooperação: ${cooperacao}
+
+<br><br>
+
+${resultado()}
+
+</div>
+
+`;
+
+document.getElementById("status").innerHTML="";
+
+
+return;
+
+}
+
+
+
+let p = perguntas[atual];
+
+
+
+document.getElementById("pergunta").innerHTML =
+
+(atual+1)+"/15 - "+p.p;
+
+
+
+let botoes = "";
+
+
+
+p.r.forEach(op=>{
+
+
+botoes +=
+
+`
+<button onclick="escolher('${op[1]}')">
+
+${op[0]}
+
+</button>
+
+`;
+
+
+});
+
+
+
+document.getElementById("respostas").innerHTML = botoes;
+
+
+
+document.getElementById("status").innerHTML =
+
+"Empatia: "+empatia+
+
+" | Cooperação: "+cooperacao;
+
+
+
+}
+
+
+
+
+
+function escolher(tipo){
+
+
+
+if(tipo=="empatia"){
+
+empatia++;
+
+}
+
+
+
+if(tipo=="empatia-"){
+
+empatia--;
+
+}
+
+
+
+if(tipo=="cooperacao"){
+
+cooperacao++;
+
+}
+
+
+
+if(tipo=="cooperacao-"){
+
+cooperacao--;
+
+}
+
+
+
+atual++;
+
+
+mostrar();
+
+
+}
+
+
+
+
+
+function resultado(){
+
+
+let total = empatia + cooperacao;
+
+
+
+if(total >= 12){
+
+return "Você demonstra muita empatia e sabe construir relações saudáveis.";
+
+}
+
+
+else if(total >= 5){
+
+return "Você está desenvolvendo boas habilidades de cooperação.";
+
+}
+
+
+else{
+
+return "Você pode melhorar sua forma de entender e ajudar os outros.";
+
+}
+
+
+}
+
+
+
+
+
+mostrar();
+
+
+
+</script>
+
+
+</body>
+
+</html>
